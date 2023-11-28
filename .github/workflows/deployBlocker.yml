@@ -25,19 +25,7 @@ jobs:
       - name: 'Post the issue in the #expensify-open-source slack room'
         if: ${{ success() }}
         uses: 8398a7/action-slack@v3
-        with:
-          status: custom
-          custom_payload: |
-            {
-              channel: '#expensify-open-source',
-              attachments: [{
-                color: "#DB4545",
-                text: '💥 We have found a New Expensify Deploy Blocker, if you have any idea which PR could be causing this, please comment in the issue: <${{ github.event.issue.html_url }}|${{ github.event.issue.title }}>'.replace(/[&<>"'|]/g, function(m) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;', '|': '&verbar;'}[m]; }),
-              }]
-            }
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+        run: echo '💥 We have found a New Expensify Deploy Blocker, if you have any idea which PR could be causing this, please comment in the issue: <${{ github.event.issue.html_url }}|${{ github.event.issue.title }}>'.replace(/[&<>"'|]/g, function(m) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;', '|': '&verbar;'}[m]; })'
 
       - name: Comment on deploy blocker
         run: |
